@@ -10,7 +10,7 @@ Window {
     visible: true
     title: "To-Do List"
 
-    TaskManager {
+    ListModel {
         id: taskManager
     }
 

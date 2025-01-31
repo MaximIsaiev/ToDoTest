@@ -21,6 +21,8 @@ set(PROJECT_SOURCES
         src/task.h
         src/taskmanager.cpp
         src/taskmanager.h
+        src/listmodel.cpp
+        src/listmodel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
