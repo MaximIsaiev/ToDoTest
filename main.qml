@@ -10,7 +10,7 @@ Window {
     visible: true
     title: "To-Do List"
 
-    ListModel {
+    TaskManager {
         id: taskManager
     }
 
@@ -33,7 +33,6 @@ Window {
                     taskManager.addTask(taskInput.text)
                     taskInput.text = "Введите задачу"
                     console.log("task")
-                    console.log(taskManager.tasks)
                 } else {
                     console.log("Enter task")
                 }
@@ -53,22 +52,14 @@ Window {
         ListView {
             width: parent.width
             height: 450
-            highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
             focus: true
+
             header: Text {
                 text: "Список задач"
                 font.pixelSize: 15
             }
 
-            model: ListModel {
-                id: tasksModel
-                Component.onCompleted: {
-                    for (let i = 0; i < taskManager.tasks.length; i++)
-                        tasksModel.append( {completed: taskManager.tasks[i].completed,
-                                                    description: taskManager.tasks[i].description,
-                                                    index: i});
-                }
-            }
+            model: taskManager.model
 
             delegate: Item {
                 width: parent.width
@@ -94,13 +85,7 @@ Window {
                 }
             }
 
-            onModelChanged: {
-                tasksModel.clear();
-                for (let i = 0; i < taskManager.tasks.length; i++)
-                    tasksModel.append({completed: taskManager.tasks[i].completed,
-                                            description: taskManager.tasks[i].description,
-                                            index: i});
-            }
         }
+
     }
 }

@@ -1,21 +1,22 @@
 #ifndef TASKMANAGER_H
 #define TASKMANAGER_H
 #include <qobject.h>
+#include "listmodel.h"
 #include "task.h"
 
 class TaskManager : public QObject {
     Q_OBJECT
-    Q_PROPERTY(QList<Task*> tasks READ tasks)
+    Q_PROPERTY(ListModel *model READ model CONSTANT)
     QML_ELEMENT
 public:
     explicit TaskManager(QObject *parent = nullptr);
     Q_INVOKABLE void addTask(const QString &description);
-    Q_INVOKABLE void removeTask(int index);
-    Q_INVOKABLE void toggleTask(int index);
-    Q_INVOKABLE QList<Task*> tasks();
+    Q_INVOKABLE void removeTask(int index) const;
+    Q_INVOKABLE void toggleTask(int index) const;
+    ListModel* model() const;
 
 private:
-    QList<Task*> m_tasks;
+    ListModel *m_model;
 
 signals:
     void tasksChanged();

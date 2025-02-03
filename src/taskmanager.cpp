@@ -1,33 +1,24 @@
-//
-// Created by daria on 29.01.2025.
-//
-
 #include "taskmanager.h"
 
-TaskManager::TaskManager(QObject *parent) : QObject(parent) {}
+
+TaskManager::TaskManager(QObject *parent) : QObject(parent), m_model(new ListModel(this)) {}
 
 void TaskManager::addTask(const QString &description) {
-    Task *task = new Task(description, false);
-    m_tasks.append(task);
+    const auto task = QSharedPointer<Task>(new Task(description, false));
+    m_model->addTask(task);
     emit tasksChanged();
 }
 
-void TaskManager::removeTask(int index) {
-    if (index > 0 && index <= m_tasks.size()) {
-        delete m_tasks.takeAt(index);
-        emit tasksChanged();
-    }
-
+void TaskManager::removeTask(const int index) const {
+    m_model->removeTask(index);
 }
 
-void TaskManager::toggleTask(int index) {
-    if (index > 0 && index <= m_tasks.size()) {
-        Task *task = m_tasks.takeAt(index);
-        if (task)
-            task->setCompleted(!task->completed());
-    }
+void TaskManager::toggleTask(const int index) const {
+    m_model->toggleTask(index);
 }
 
-QList<Task*> TaskManager::tasks() {
-    return m_tasks;
+ListModel * TaskManager::model() const {
+    return m_model;
 }
+
+

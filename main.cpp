@@ -1,8 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-
-#include "src/listmodel.h"
 #include "src/taskmanager.h"
 
 int main(int argc, char *argv[])
@@ -12,9 +10,7 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-    qmlRegisterType<Task>("todoList", 1, 0, "Task");
     qmlRegisterType<TaskManager>("todoList", 1, 0, "TaskManager");
-    qmlRegisterType<ListModel>("todoList", 1, 0, "ListModel");
     QQmlApplicationEngine engine;
     // TaskManager taskManager;
     // engine.rootContext()->setContextProperty("taskManager", &taskManager);
