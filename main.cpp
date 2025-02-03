@@ -1,6 +1,7 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <QQmlContext>
+#include "src/taskmanager.h"
 
 int main(int argc, char *argv[])
 {
@@ -9,15 +10,11 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-
+    qmlRegisterType<TaskManager>("todoList", 1, 0, "TaskManager");
     QQmlApplicationEngine engine;
+    // TaskManager taskManager;
+    // engine.rootContext()->setContextProperty("taskManager", &taskManager);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
     engine.load(url);
-
     return app.exec();
 }

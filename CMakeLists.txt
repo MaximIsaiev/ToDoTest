@@ -17,6 +17,12 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Core Quick REQUIRED)
 set(PROJECT_SOURCES
         main.cpp
         qml.qrc
+        src/task.cpp
+        src/task.h
+        src/taskmanager.cpp
+        src/taskmanager.h
+        src/listmodel.cpp
+        src/listmodel.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
